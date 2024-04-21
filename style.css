@@ -1,5 +1,5 @@
 // Replace 'YOUR_DISCORD_WEBHOOK_URL_HERE' with your actual Discord webhook URL
-var webhookUrl = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+var webhookUrl = 'https://discord.com/api/webhooks/1231425931453792256/zDbYK2ISGhEl32ory64ubBIB3jv0oPibP5XW1MZA7ztB32zvvZdVyzGBM2_yGimCi5Td';
 
 // Send a message to Discord webhook
 fetch(webhookUrl, {
